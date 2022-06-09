@@ -51,4 +51,4 @@ jobs:
         with:
           app-name: 'logisticui'          
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6EF9DD70F98648B298C90613102488EC }}
-          package: ./dist/logisticui
+          package: ./dist/logistic-ui
