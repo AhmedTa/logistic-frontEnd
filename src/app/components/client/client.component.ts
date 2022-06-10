@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ClientService } from 'src/app/services/client.service';
 
 export interface Tile {
   color: string;
@@ -14,6 +16,7 @@ export interface Tile {
   styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
+  clientsList: any;
   clientForm: FormGroup;
   name = new FormControl('');
   orgName = new FormControl('');
@@ -32,7 +35,7 @@ export class ClientComponent implements OnInit {
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
 
-  constructor(fb: FormBuilder) { 
+  constructor(fb: FormBuilder, private clientService: ClientService) { 
     this.clientForm = fb.group({
       name: this.name,
       orgName: this.orgName,
@@ -47,6 +50,10 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clientService.getClients().subscribe(result => {
+      this.clientsList = result.data;
+    });
+    console.log('CLNT', this.clientsList);
   }
 
 }
